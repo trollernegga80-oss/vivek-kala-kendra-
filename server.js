@@ -71,4 +71,13 @@ app.post('/api/save-booking', (req, res) => {
 });
 
 const PORT = 5000;
+// Database ko poora saaf (clear) karne ke liye endpoint
+app.get('/api/clear-all-bookings', (req, res) => {
+    db.run(`DELETE FROM bookings`, [], (err) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: "Clear karne me error aaya!" });
+        }
+        res.json({ success: true, message: "Bappa! Saari bookings successfully clear ho gayi hain! 🙏" });
+    });
+});
 app.listen(PORT, () => console.log(`Server executing securely on port ${PORT}`));
