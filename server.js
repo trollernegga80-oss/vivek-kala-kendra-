@@ -80,4 +80,4 @@ app.get('/api/clear-all-bookings', (req, res) => {
         res.json({ success: true, message: " Ganpati Bappa Motha ! Saari bookings successfully clear ho gayi hain! 🙏" });
     });
 });
-app.listen(PORT, () => console.log(`Server executing securely on port ${PORT}`)); ye dekh ye code hai to vo starting ka hai na vo database connect bappa morya vohi kuch scene lag raha tu bata isme kya change karu aur krke de
+const PORT = process.env.PORT || 5000; // Render apna PORT deta hai, hardcode 5000 mat rakh
