@@ -77,7 +77,7 @@ app.get('/api/clear-all-bookings', (req, res) => {
         if (err) {
             return res.status(500).json({ success: false, message: "Clear karne me error aaya!" });
         }
-        res.json({ success: true, message: "Bappa! Saari bookings successfully clear ho gayi hain! 🙏" });
+        res.json({ success: true, message: " Ganpati Bappa Motha ! Saari bookings successfully clear ho gayi hain! 🙏" });
     });
 });
-app.listen(PORT, () => console.log(`Server executing securely on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server executing securely on port ${PORT}`)); ye dekh ye code hai to vo starting ka hai na vo database connect bappa morya vohi kuch scene lag raha tu bata isme kya change karu aur krke de
