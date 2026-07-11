@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(cors());
 
 // 1. SQLITE DATABASE SETUP
+// Render पर फाइल सिस्टम अस्थायी होता है, ध्यान रखें।
 const db = new sqlite3.Database('./kirti_kala_kendra.db', (err) => {
     if (err) console.error("Database connection fault: ", err.message);
     else console.log("SQL Database connected! Bappa Morya! 🙏");
@@ -27,19 +28,16 @@ db.run(`CREATE TABLE IF NOT EXISTS bookings (
 
 // 2. API ENDPOINTS
 
-// New API: Saari booked murtiyon ki list lene ke liye
 app.get('/api/booked-murtis', (req, res) => {
     db.all(`SELECT DISTINCT murtiName FROM bookings`, [], (err, rows) => {
         if (err) {
             return res.status(500).json({ success: false, message: "Database read error" });
         }
-        // Sirf booked murtiyon ke naam ka array bhejenge
         const bookedNames = rows.map(row => row.murtiName);
         res.json({ success: true, bookedMurtis: bookedNames });
     });
 });
 
-// Data Registration Endpoint
 app.post('/api/save-booking', (req, res) => {
     try {
         const { customerName, murtiName, murtiSize, totalPrice, amountPaid } = req.body;
@@ -70,14 +68,15 @@ app.post('/api/save-booking', (req, res) => {
     }
 });
 
-const PORT = 5000;
-// Database ko poora saaf (clear) karne ke liye endpoint
 app.get('/api/clear-all-bookings', (req, res) => {
     db.run(`DELETE FROM bookings`, [], (err) => {
         if (err) {
             return res.status(500).json({ success: false, message: "Clear karne me error aaya!" });
         }
-        res.json({ success: true, message: " Ganpati Bappa Motha ! Saari bookings successfully clear ho gayi hain! 🙏" });
+        res.json({ success: true, message: "Bappa! Saari bookings successfully clear ho gayi hain! 🙏" });
     });
 });
-const PORT = process.env.PORT || 5000; // Render apna PORT deta hai, hardcode 5000 mat rakh
+
+// Render के लिए पोर्ट का सही तरीका
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server executing securely on port ${PORT}`));
